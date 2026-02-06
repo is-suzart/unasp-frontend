@@ -14,12 +14,13 @@ class AppSidebar extends StatefulWidget {
 
 class _AppSidebarState extends State<AppSidebar> {
   bool _isHovered = false;
+  int _selectedIndex = 0; // Estado visual local para demonstração
 
   @override
   Widget build(BuildContext context) {
-    // Dimensões do sidebar
-    const double collapsedWidth = 72.0;
-    const double expandedWidth = 250.0;
+    // Dimensões refinadas para um look mais premium
+    const double collapsedWidth = 88.0;
+    const double expandedWidth = 280.0;
 
     final width = _isHovered ? expandedWidth : collapsedWidth;
 
@@ -27,103 +28,83 @@ class _AppSidebarState extends State<AppSidebar> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        curve: Curves.easeInOut,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.fastOutSlowIn,
         width: width,
         height: double.infinity,
         decoration: BoxDecoration(
           color: Colors.white,
+          border: Border(
+            right: BorderSide(
+              color: Colors.grey.withValues(alpha: 0.1),
+              width: 1,
+            ),
+          ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
-              blurRadius: 4,
-              offset: const Offset(2, 0),
+              color: Colors.black.withValues(alpha: 0.03),
+              blurRadius: 20,
+              offset: const Offset(4, 0),
             ),
           ],
         ),
         child: Column(
           children: [
-            // Logo Area
-            SizedBox(
-              height: 80,
-              child: Center(
-                child: Builder(
-                  builder: (context) {
-                    // Logic to choose which logo to show
-                    final showIcon =
-                        !_isHovered && widget.menu.logoIcon != null;
-                    final logoPath = showIcon
-                        ? widget.menu.logoIcon!
-                        : widget.menu.logo;
-
-                    if (logoPath.isEmpty) {
-                      return _isHovered
-                          ? AppTextAtom.h2('UNASP')
-                          : AppTextAtom.h3('U');
-                    }
-
-                    // Handle Asset vs Network
-                    if (logoPath.startsWith('assets/')) {
-                      return Image.asset(
-                        logoPath,
-                        width: _isHovered ? 120 : 40,
-                        height: 40,
-                        fit: BoxFit.contain,
-                        errorBuilder: (_, _, _) =>
-                            const Icon(Icons.broken_image),
-                      );
-                    } else {
-                      return Image.network(
-                        logoPath,
-                        width: _isHovered ? 120 : 40,
-                        height: 40,
-                        fit: BoxFit.contain,
-                        errorBuilder: (_, _, _) =>
-                            const Icon(Icons.broken_image),
-                      );
-                    }
-                  },
-                ),
-              ),
+            // Logo Branding Area
+            Container(
+              height: 100,
+              alignment: Alignment.center,
+              padding: EdgeInsets.symmetric(horizontal: _isHovered ? 24 : 0),
+              child: _LogoWidget(menu: widget.menu, showIconOnly: !_isHovered),
             ),
 
-            const Divider(height: 1),
+            const SizedBox(height: 16),
 
-            // Menu Items
+            // Navigation Items
             Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.symmetric(vertical: 16),
+              child: ListView.separated(
+                padding: EdgeInsets
+                    .zero, // Removed padding to prevent overflow during resize
                 itemCount: widget.menu.items.length,
+                separatorBuilder: (_, __) => const SizedBox(height: 8),
                 itemBuilder: (context, index) {
                   final item = widget.menu.items[index];
+                  final isSelected = index == _selectedIndex;
                   final icon = AppIconMapper.parse(item.icon);
 
                   return _SidebarItem(
-                    item: item,
+                    text: item.text,
                     icon: icon,
+                    isSelected: isSelected,
                     isExpanded: _isHovered,
+                    onTap: () => setState(() => _selectedIndex = index),
                   );
                 },
               ),
             ),
 
-            // Footer Buttons (Logout, Configs, etc)
+            // Footer Actions
             if (widget.menu.buttons.isNotEmpty) ...[
-              const Divider(height: 1),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: widget.menu.buttons.map((btn) {
-                    // Simplificação: usando icones para sidebar também
-                    return IconButton(
-                      icon: Icon(AppIconMapper.parse(btn.icon)),
-                      tooltip: _isHovered ? btn.text : null,
-                      onPressed: () {},
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 8),
+                      child: _SidebarItem(
+                        text: btn.text,
+                        icon: AppIconMapper.parse(btn.icon),
+                        isExpanded: _isHovered,
+                        isSelected: false,
+                        isDestructive: true,
+                        onTap: () {},
+                      ),
                     );
                   }).toList(),
                 ),
               ),
             ],
+            const SizedBox(height: 16),
           ],
         ),
       ),
@@ -131,52 +112,164 @@ class _AppSidebarState extends State<AppSidebar> {
   }
 }
 
+class _LogoWidget extends StatelessWidget {
+  final MenuEntity menu;
+  final bool showIconOnly;
+
+  const _LogoWidget({required this.menu, required this.showIconOnly});
+
+  @override
+  Widget build(BuildContext context) {
+    // Smooth transition for logo alignment/padding
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 200),
+      // Only apply padding when we have space to breathe
+      padding: EdgeInsets.symmetric(horizontal: showIconOnly ? 0 : 24),
+      curve: Curves.easeInOut,
+      alignment: Alignment.center,
+      child: _buildContent(),
+    );
+  }
+
+  Widget _buildContent() {
+    if (showIconOnly && menu.logoIcon != null) {
+      return _buildImage(menu.logoIcon!, 40);
+    }
+
+    if (menu.logo.isNotEmpty) {
+      // Use OverflowBox to prevent crash if width is temporarily too small during animation
+      return OverflowBox(
+        maxWidth: 160,
+        maxHeight: 50,
+        alignment: Alignment.centerLeft,
+        child: _buildImage(menu.logo, showIconOnly ? 40 : 140),
+      );
+    }
+
+    return AppTextAtom.h3(showIconOnly ? 'U' : 'UNASP');
+  }
+
+  Widget _buildImage(String path, double width) {
+    if (path.startsWith('assets/')) {
+      return Image.asset(
+        path,
+        width: width,
+        height: 40,
+        fit: BoxFit.contain,
+        errorBuilder: (_, __, _) => const Icon(Icons.broken_image),
+      );
+    }
+    return Image.network(
+      path,
+      width: width,
+      height: 40,
+      fit: BoxFit.contain,
+      errorBuilder: (_, __, _) => const Icon(Icons.broken_image),
+    );
+  }
+}
+
 class _SidebarItem extends StatelessWidget {
-  final MenuItemEntity item;
+  final String text;
   final IconData? icon;
+  final bool isSelected;
   final bool isExpanded;
+  final bool isDestructive;
+  final VoidCallback onTap;
 
   const _SidebarItem({
-    required this.item,
+    required this.text,
     required this.icon,
+    required this.isSelected,
     required this.isExpanded,
+    this.isDestructive = false,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    // Quando colapsado, mostrar só Icone centralizado.
-    // Quando expandido, mostrar Icone + Texto.
+    // Cores baseadas no estilo 'Premium'
+    // Usando a cor primária do tema Atomic
+    final theme = Theme.of(context);
+    final brandColor = theme.colorScheme.primary;
+
+    final activeBg = brandColor.withValues(alpha: 0.1);
+    final activeContent = brandColor;
+
+    // Fallback para conteúdo inativo se não definido no tema
+    // Usando onSurface com opacidade para consistência com o tema
+    final inactiveContent = theme.colorScheme.onSurface.withValues(alpha: 0.6);
+    final destructiveColor = theme.colorScheme.error;
+
+    final contentColor = isDestructive
+        ? destructiveColor
+        : (isSelected ? activeContent : inactiveContent);
+
+    // Padding dinâmico: menor quando colapsado para maximizar espaço
+    // maior quando expandido para estética.
+    // Usamos margin horizontal para criar o efeito "flutuante" do item.
+    final horizontalMargin = 12.0;
+
+    // Padding interno do item
+    final internalPadding = isExpanded ? 16.0 : 0.0;
 
     return InkWell(
-      onTap: () {
-        debugPrint('Navigate to ${item.url}');
-      },
-      hoverColor: Colors.grey.withValues(alpha: 0.05),
-      child: SizedBox(
-        height: 56, // Altura fixa para consistência
-        child: Row(
-          mainAxisAlignment: isExpanded
-              ? MainAxisAlignment.start
-              : MainAxisAlignment.center,
-          children: [
-            // Espaçamento esquerdo se expandido
-            if (isExpanded) const SizedBox(width: 24),
-
-            Icon(icon ?? Icons.circle, size: 24, color: Colors.grey[700]),
-
-            if (isExpanded) ...[
-              const SizedBox(width: 16),
-              Flexible(
-                child: AppTextAtom.body(
-                  item.text,
-                  fontWeight: FontWeight.w500,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        height: 52,
+        margin: EdgeInsets.symmetric(horizontal: horizontalMargin),
+        padding: EdgeInsets.symmetric(horizontal: internalPadding),
+        decoration: BoxDecoration(
+          color: isSelected ? activeBg : Colors.transparent,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          physics:
+              const NeverScrollableScrollPhysics(), // Prevent user scrolling
+          child: SizedBox(
+            // Força a largura mínima para centralização quando colapsado
+            width: isExpanded ? null : (88.0 - (horizontalMargin * 2)),
+            height: 52,
+            child: Row(
+              mainAxisSize: MainAxisSize.min, // Shrink to fit content
+              mainAxisAlignment: isExpanded
+                  ? MainAxisAlignment.start
+                  : MainAxisAlignment.center,
+              children: [
+                Icon(
+                  icon ?? Icons.circle_outlined,
+                  size: 24,
+                  color: contentColor,
                 ),
-              ),
-              const SizedBox(width: 24),
-            ],
-          ],
+
+                if (isExpanded) ...[
+                  const SizedBox(width: 12),
+                  // Text inside constrained container
+                  AppTextAtom.nav(
+                    text,
+                    color: contentColor,
+                    isActive: isSelected,
+                    textAlign: TextAlign.left,
+                  ),
+                  if (isSelected)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 12),
+                      child: Container(
+                        width: 6,
+                        height: 6,
+                        decoration: BoxDecoration(
+                          color: activeContent,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                    ),
+                ],
+              ],
+            ),
+          ),
         ),
       ),
     );

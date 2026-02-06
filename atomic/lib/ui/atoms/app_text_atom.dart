@@ -24,13 +24,14 @@ class AppTextAtom extends StatelessWidget {
     Color? color,
     TextAlign? textAlign,
     double fontSize = 32,
+    FontWeight fontWeight = FontWeight.w300,
   }) {
     return AppTextAtom._(
       key: key,
       text: text,
       textAlign: textAlign,
       style: GoogleFonts.poppins(
-        fontWeight: FontWeight.w300,
+        fontWeight: fontWeight,
         fontSize: fontSize,
         color: color,
         height: 0.9,
@@ -46,13 +47,14 @@ class AppTextAtom extends StatelessWidget {
     Color? color,
     TextAlign? textAlign,
     double fontSize = 24,
+    FontWeight fontWeight = FontWeight.w300,
   }) {
     return AppTextAtom._(
       key: key,
       text: text,
       textAlign: textAlign,
       style: GoogleFonts.poppins(
-        fontWeight: FontWeight.w300,
+        fontWeight: fontWeight,
         fontSize: fontSize,
         color: color,
         height: 0.9,
@@ -68,13 +70,14 @@ class AppTextAtom extends StatelessWidget {
     Color? color,
     TextAlign? textAlign,
     double fontSize = 20,
+    FontWeight fontWeight = FontWeight.w300,
   }) {
     return AppTextAtom._(
       key: key,
       text: text,
       textAlign: textAlign,
       style: GoogleFonts.poppins(
-        fontWeight: FontWeight.w300,
+        fontWeight: fontWeight,
         fontSize: fontSize,
         color: color,
         height: 0.9,
@@ -90,13 +93,14 @@ class AppTextAtom extends StatelessWidget {
     Color? color,
     TextAlign? textAlign,
     double fontSize = 18,
+    FontWeight fontWeight = FontWeight.w300,
   }) {
     return AppTextAtom._(
       key: key,
       text: text,
       textAlign: textAlign,
       style: GoogleFonts.poppins(
-        fontWeight: FontWeight.w300,
+        fontWeight: fontWeight,
         fontSize: fontSize,
         color: color,
         height: 0.9,
@@ -112,13 +116,14 @@ class AppTextAtom extends StatelessWidget {
     Color? color,
     TextAlign? textAlign,
     double fontSize = 16,
+    FontWeight fontWeight = FontWeight.w300,
   }) {
     return AppTextAtom._(
       key: key,
       text: text,
       textAlign: textAlign,
       style: GoogleFonts.poppins(
-        fontWeight: FontWeight.w300,
+        fontWeight: fontWeight,
         fontSize: fontSize,
         color: color,
         height: 0.9,
@@ -134,13 +139,14 @@ class AppTextAtom extends StatelessWidget {
     Color? color,
     TextAlign? textAlign,
     double fontSize = 14,
+    FontWeight fontWeight = FontWeight.w300,
   }) {
     return AppTextAtom._(
       key: key,
       text: text,
       textAlign: textAlign,
       style: GoogleFonts.poppins(
-        fontWeight: FontWeight.w300,
+        fontWeight: fontWeight,
         fontSize: fontSize,
         color: color,
         height: 0.9,

@@ -1,3 +1,4 @@
+import 'dashboard/dashboard_view.dart';
 import 'package:atomic/ui/organisms/app_drawer.dart';
 import 'package:atomic/ui/organisms/app_header.dart';
 import 'package:atomic/ui/organisms/app_sidebar.dart';
@@ -66,36 +67,22 @@ class HomePage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             IconButton(
-                              icon: const Icon(Icons.notifications),
+                              icon: const Icon(
+                                Icons.notifications_none_rounded,
+                              ),
                               onPressed: () {},
                             ),
                             const SizedBox(width: 16),
-                            const CircleAvatar(child: Icon(Icons.person)),
+                            const CircleAvatar(
+                              backgroundColor: Color(0xFFE0E0E0),
+                              child: Icon(Icons.person, color: Colors.grey),
+                            ),
                           ],
                         ),
                       ),
 
                       // Page Content
-                      Expanded(
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'Bem-vindo ao Portal UNASP',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-                              const Text(
-                                'Selecione uma opção no menu lateral.',
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      const Expanded(child: DashboardView()),
                     ],
                   ),
                 ),
@@ -114,7 +101,7 @@ class HomePage extends StatelessWidget {
               },
             ),
             drawer: AppDrawer(menu: mockMenu),
-            body: const Center(child: Text('Mobile Content Placeholder')),
+            body: const DashboardView(), // Also use dashboard view on mobile
           );
         }
       },
