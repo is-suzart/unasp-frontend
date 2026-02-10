@@ -284,7 +284,7 @@ class _RecentActivitiesCard extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: 4,
-            separatorBuilder: (_, __) => const Padding(
+            separatorBuilder: (_, _) => const Padding(
               padding: EdgeInsets.symmetric(vertical: 16),
               child: Divider(height: 1, thickness: 0.5),
             ),

@@ -2,8 +2,8 @@ import 'package:atomic/ui/atoms/app_button_atom.dart';
 import 'package:atomic/ui/atoms/app_input_atom.dart';
 import 'package:atomic/ui/atoms/app_text_atom.dart';
 import 'package:flutter/material.dart';
+import 'package:portal/core/di/injection.dart';
 import 'package:portal/model/login.dart';
-import 'package:portal/side-effecs/login/login.dart';
 import 'package:portal/update/login/login.dart';
 import 'package:signals_flutter/signals_flutter.dart';
 
@@ -15,22 +15,21 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  // 💉 Injeta o controller via GetIt (nova instância toda vez)
   late final LoginController controller;
 
   @override
   void initState() {
     super.initState();
-    controller = LoginController(repository: LoginRepository());
+    // 🏭 GetIt cria uma NOVA instância do controller
+    // Quando o widget for destruído, o controller também será
+    controller = getIt<LoginController>();
   }
 
   @override
   Widget build(BuildContext context) {
     // Watch controller state
     final loginState = controller.state.watch(context);
-
-    if (loginState.status == LoginStatus.loading) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
-    }
 
     return Scaffold(
       backgroundColor: Colors.grey[100], // Cinzinha claro
@@ -161,6 +160,13 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
+          if (loginState.status == LoginStatus.loading)
+            Positioned.fill(
+              child: ColoredBox(
+                color: Colors.black54,
+                child: const Center(child: CircularProgressIndicator()),
+              ),
+            ),
         ],
       ),
     );

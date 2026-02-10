@@ -66,7 +66,7 @@ class _AppSidebarState extends State<AppSidebar> {
                 padding: EdgeInsets
                     .zero, // Removed padding to prevent overflow during resize
                 itemCount: widget.menu.items.length,
-                separatorBuilder: (_, __) => const SizedBox(height: 8),
+                separatorBuilder: (_, _) => const SizedBox(height: 8),
                 itemBuilder: (context, index) {
                   final item = widget.menu.items[index];
                   final isSelected = index == _selectedIndex;
@@ -156,7 +156,7 @@ class _LogoWidget extends StatelessWidget {
         width: width,
         height: 40,
         fit: BoxFit.contain,
-        errorBuilder: (_, __, _) => const Icon(Icons.broken_image),
+        errorBuilder: (_, _, _) => const Icon(Icons.broken_image),
       );
     }
     return Image.network(
@@ -164,7 +164,7 @@ class _LogoWidget extends StatelessWidget {
       width: width,
       height: 40,
       fit: BoxFit.contain,
-      errorBuilder: (_, __, _) => const Icon(Icons.broken_image),
+      errorBuilder: (_, _, _) => const Icon(Icons.broken_image),
     );
   }
 }

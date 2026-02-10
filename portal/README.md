@@ -1,16 +1,42 @@
-# portal
+# 🎀 UNASP Portal 🎀
 
-A new Flutter project.
+Bem-vindo(a) ao **Portal**, a aplicação principal onde os usuários interagem com nosso sistema! (´｡• ᵕ •｡`)
+Feito com Flutter para rodar liso em qualquer lugar! 🦋
 
-## Getting Started
+![Bocchi Happy](https://media.tenor.com/t1k5YfFqK8EAAAAC/bocchi-the-rock-hitori-gotoh.gif)
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## 🏗️ Arquitetura: MVU (Model-View-Update)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Aqui seguimos uma arquitetura reativa e previsível baseada no **Elm Architecture**! 🔄
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+-   **Model**: O estado único da verdade. 📁
+-   **View**: A interface que desenha o estado na tela. 🎨
+-   **Update**: Funções puras que atualizam o estado. ⚡
+-   **Side-Effects**: Chamadas de API e logicas que "sujam" a pureza (ficam isolados!). 🌊
+
+### 📚 Principais Bibliotecas
+-   **`signals_flutter`** 📡: Gerenciamento de estado reativo super rápido!
+-   **`atomic`**: Nossa biblioteca de componentes de design (veja `../atomic`). ⚛️
+-   **`entities`**: Nossas regras de negócio compartilhadas (veja `../entities`). 📦
+-   **`get_it`**: Injeção de dependência para manter tudo desacoplado. 💉
+
+---
+
+## 🚀 Como Rodar
+
+Basta rodar o comando padrão do Flutter:
+
+```bash
+flutter run
+```
+
+Se precisar gerar arquivos (como JSON serializable):
+```bash
+flutter pub run build_runner build
+```
+
+---
+
+*Vamos codar algo incrível!* 🎸

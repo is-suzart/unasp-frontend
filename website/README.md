@@ -1,16 +1,31 @@
-# website
+# 🌐 UNASP Website 🌐
 
-A new Flutter project.
+Olá! Este é o **Website Institucional/Landing Page** do projeto! (o^▽^o)
+Aqui é a porta de entrada para novos visitantes conhecerem o que construímos. ✨
 
-## Getting Started
+![Bocchi Web](https://media.tenor.com/PReQ4R-L7eAAAAAd/bocchi-the-rock-hitori-gotoh.gif)
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## 🛠️ Sobre
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Diferente do Portal (que é focado em funcionalidades complexas), o Website é focado em **apresentação e conteúdo**.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+-   **Tecnologia**: Flutter Web 🦋
+-   **Foco**: Performance de carregamento, SEO (dentro do possível no Flutter) e design responsivo.
+
+Estamos usando uma estrutura leve para garantir que a primeira impressão seja sempre rápida e bonita! ⚡
+
+---
+
+## 🚀 Como Rodar
+
+Assim como qualquer projeto Flutter:
+
+```bash
+flutter run -d chrome
+```
+
+---
+
+*Simples e direto, como um bom solo de guitarra!* 🎸

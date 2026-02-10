@@ -1,4 +1,5 @@
 import 'package:atomic/atomic.dart';
+import 'package:entities/entities.dart'; // Import completo para PageBlock
 import 'package:entities/shared/menu.dart';
 import 'package:entities/shared/visual_components.dart' as entity;
 import 'package:atomic/ui/theme/atomic_theme.dart';
@@ -169,6 +170,11 @@ class _ShowCasePageState extends State<ShowCasePage> {
             ),
             const SizedBox(height: 40),
 
+            // Server Driven UI Demo
+            const ServerDrivenSection(),
+
+            const SizedBox(height: 40),
+
             // Feature Grid
             FeatureGrid(items: features),
 
@@ -318,6 +324,78 @@ class _DynamicFormSectionState extends State<DynamicFormSection> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class ServerDrivenSection extends StatelessWidget {
+  const ServerDrivenSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // JSON simulando resposta da API
+    final Map<String, dynamic> serverJson = {
+      "type": "section",
+      "props": {
+        "title": "Server-Driven UI (JSON)",
+        "description": "Renderizado dinamicamente a partir de JSON",
+        "layout": "list",
+        "gap": "lg",
+      },
+      "children": [
+        {
+          "type": "hero",
+          "props": {
+            "title": "Backend Controla o Frontend",
+            "description": "Mudanças no layout sem deploy do app.",
+            "imageUrl":
+                "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1000&q=80",
+          },
+        },
+        {
+          "type": "container",
+          "props": {"layout": "grid", "columns": 2, "gap": "md"},
+          "children": [
+            {
+              "type": "card",
+              "props": {
+                "title": "Flexibilidade",
+                "description":
+                    "Componentes recursivos permitem qualquer layout.",
+              },
+            },
+            {
+              "type": "card",
+              "props": {
+                "title": "Velocidade",
+                "description": "Iterações rápidas de design direto na API.",
+              },
+            },
+          ],
+        },
+        {
+          "type": "section",
+          "props": {"title": "Lista Dinâmica", "layout": "list", "gap": "sm"},
+          "children": [
+            {
+              "type": "news-card",
+              "props": {"title": "Update 1: Grid System Implementado"},
+            },
+            {
+              "type": "news-card",
+              "props": {"title": "Update 2: Componentes Atômicos Prontos"},
+            },
+          ],
+        },
+      ],
+    };
+
+    final page = PageBlock.fromJson(serverJson);
+
+    return Container(
+      color: Colors.grey[50], // Destaque visual
+      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+      child: BlockBuilder(block: page),
     );
   }
 }

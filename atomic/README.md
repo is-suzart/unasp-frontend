@@ -1,39 +1,38 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# ⚛️ UNASP Atomic ⚛️
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+Olá! Aqui vive o nosso **Design System**! 🎨
+Construído com base na metodologia de **Atomic Design**, para interfaces consistentes e bonitas! ✨
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+![Bocchi Design](https://media.tenor.com/w9O8a-cMJQYAAAAC/bocchi-the-rock-hitori-gotoh.gif)
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+---
 
-## Features
+## 🧪 Estrutura Atômica
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Dividimos nossos componentes em níveis de complexidade:
 
-## Getting started
+1.  **Átomos (Atoms)** 🔴: Elementos indivisíveis (Botões, Inputs, Ícones, Cores).
+2.  **Moléculas (Molecules)** 🟠: Grupos de átomos (Campo de busca, Card simples).
+3.  **Organismos (Organisms)** 🟡: Grupos complexos de moléculas (Header, Sidebar, Formulários completos).
+4.  **Templates** 🟢: Estruturas de página (esqueletos).
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+---
 
-## Usage
+## 📚 Tecnologias
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+-   **`signals_flutter`** 📡: Para componentes que precisam de reatividade interna.
+-   **`google_fonts`**: Tipografia bonitona.
 
-```dart
-const like = 'sample';
+### Como usar
+
+Adicione `atomic` nas dependências do seu projeto Flutter (`portal` ou `website`) e seja feliz!
+
+```yaml
+dependencies:
+  atomic:
+    path: ../atomic
 ```
 
-## Additional information
+---
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+*Pequenos componentes, grandes interfaces!* 🧩

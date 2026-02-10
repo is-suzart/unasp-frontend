@@ -41,6 +41,7 @@ dependencies:
   signals_flutter: ^6.3.0
   shared_preferences: ^2.5.4
   get_it: ^9.2.0
+  http: ^1.6.0
 
 dev_dependencies:
   flutter_test:

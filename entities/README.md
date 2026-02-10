@@ -1,39 +1,27 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# 📦 UNASP Entities 📦
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+Bem-vindo(a) ao coração compartilhado do nosso frontend! ❤️
+Este pacote contém as **Entidades** e **Objetos de Valor** que são usados tanto no Portal quanto no Atomic.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+![Bocchi Heart](https://media.tenor.com/p_o1oRjlBwQAAAAC/bocchi-the-rock-bocchi.gif)
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+---
 
-## Features
+## 🎯 Objetivo
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Para evitar duplicação de código e garantir que todos falem a mesma língua, centralizamos nossos modelos aqui. (≧◡≦)
 
-## Getting started
+-   **Pure Dart**: Sem dependências de Flutter (na maioria das vezes), para ser leve e reutilizável.
+-   **Validações**: Regras de negócio básicas vivem aqui.
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+### Exemplo de Uso
 
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Se você precisa usar o modelo de `User` ou `Community`, você importa deste pacote:
 
 ```dart
-const like = 'sample';
+import 'package:entities/user.dart';
 ```
 
-## Additional information
+---
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+*Organização é tudo! (disse a Bocchi arrumando o quarto)* 📦
